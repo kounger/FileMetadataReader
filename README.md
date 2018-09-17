@@ -1,6 +1,6 @@
 # FileMetadataReader
 
-This little program prints out the metadata / properties which are part of a file or directory in Windows.
+This little [program](https://github.com/kounger/FileMetadataReader/blob/master/FileMetadataReader/FileMetadataReader/FileMetadataReader.cs) prints out the metadata / properties which are part of a file or directory in Windows.
 
 ---
 
