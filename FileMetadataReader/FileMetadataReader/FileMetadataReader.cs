@@ -130,8 +130,14 @@ namespace FileMetadataReader
         /// </summary>
         private static void printProperties(List<IShellProperty> propertyList)
         {
-            int sizeMaxCanName = getLongestCanonicalName(propertyList);
+            int sizeMaxCanName = getLongestCanonicalName(propertyList);            
             int countedProperties = 0;
+
+            //Set window width to maximum possible text row width:
+            if(sizeMaxCanName + 112 <= Console.LargestWindowWidth)
+            {
+                Console.SetWindowSize(sizeMaxCanName + 112, Console.WindowHeight);
+            }            
 
             //Prints each property value with its canonical name:
             foreach (IShellProperty property in propertyList)
