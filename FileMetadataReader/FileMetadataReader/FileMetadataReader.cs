@@ -168,10 +168,9 @@ namespace FileMetadataReader
         private static int getLongestCanonicalName(List<IShellProperty> propertyList)
         {
             return propertyList
-                        .Where(s => s.CanonicalName != null)
-                            .OrderByDescending(s => s.CanonicalName.Length)
-                                .First()
-                                    .CanonicalName.Length;
+                    .Select(s => s.CanonicalName)
+                        .Aggregate("", (max, cur) => max.Length > cur.Length ? max : cur)
+                            .Length;
         }
 
         /// <summary>
@@ -197,16 +196,16 @@ namespace FileMetadataReader
         {
             if (propertyText.Length >= 100)
             {
-                string restOfString = propertyText;
+                string restOfText = propertyText;
                 propertyText = "";
 
-                while (restOfString.Length > 100)
+                while (restOfText.Length > 100)
                 {
                     //propertyText = already processed text + new line + idention + next 100 characters
-                    propertyText = propertyText + restOfString.Substring(0, 100) + "\n" + new string(' ', sizeMaxCanName + 11);
-                    restOfString = restOfString.Substring(100);
+                    propertyText = propertyText + restOfText.Substring(0, 100) + "\n" + new string(' ', sizeMaxCanName + 11);
+                    restOfText = restOfText.Substring(100);
                 }
-                propertyText = propertyText + restOfString;
+                propertyText = propertyText + restOfText;
             }
 
             return propertyText;
